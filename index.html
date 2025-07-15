@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GéniDev - Groupe d'étudiants développeurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #ffe800;
+      --accent-gradient: linear-gradient(90deg, #ffe800 0%, #22c1c3 100%);
+      --bg: #f7f7f9;
+      --text: #222;
+      --muted: #666;
+      --card: #fff;
+      --border: #e0e0e0;
+      --shadow: 0 4px 24px rgba(34,193,195,0.10), 0 2px 8px rgba(253,187,45,0.09);
+    }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    body {
+      color: var(--text);
+      background: linear-gradient(120deg, rgba(0,0,0,0.72) 0%, rgba(34,193,195,0.70) 35%, rgba(253,187,45,0.60) 100%), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+      min-height: 100vh;
+      font-family: 'Montserrat', Arial, sans-serif;
+      line-height: 1.7;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      backdrop-filter: blur(3.5px);
+      overflow-x: hidden;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    main, header, footer {
+      position: relative;
+      z-index: 1;
+    }
+    main {
+      padding-top: 90px;
+      flex: 1;
+      width: 100%;
+    }
+    header {
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+      padding: 28px 0 16px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      max-width: 100vw;
+      z-index: 100;
+      transition: box-shadow 0.18s, background 0.18s;
+      border-bottom: 1.5px solid var(--border);
+      backdrop-filter: blur(6px);
+      overflow-x: hidden;
+    }
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 18px;
+    }
+    .logo {
+      font-weight: 900;
+      font-size: 2rem;
+      color: #1a2236;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #23304a;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.08rem;
+      padding: 8px 18px;
+      border-radius: 10px;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .nav-links a:hover, .nav-links a:focus {
+      background: var(--accent-gradient);
+      color: #22223b;
+      box-shadow: 0 2px 8px rgba(253,187,45,0.10);
+      text-shadow: 0 2px 8px rgba(253,187,45,0.10);
+    }
+    /* Modern hover effects */
+    button, .contact-btn, .skill-card, .blog-card, .member img {
+      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover, .contact-btn:hover {
+      background: var(--accent-gradient);
+      color: #23304a;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 6px 20px rgba(34,193,195,0.18), 0 3px 12px rgba(253,187,45,0.13);
+    }
+    .skill-card:hover, .blog-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(34,193,195,0.13), 0 4px 16px rgba(253,187,45,0.14);
+    }
+    .member img {
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .member img:hover {
+      transform: scale(1.07) rotate(-2deg);
+      box-shadow: 0 8px 28px rgba(34,193,195,0.16), 0 4px 16px rgba(253,187,45,0.18);
+    }
+    /* Cards modern look */
+    .skill-card, .blog-card {
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,0.96);
+      padding: 22px 18px;
+      margin: 12px 0;
+    }
+    section {
+      margin-bottom: 48px;
+      padding: 0 0 12px 0;
+    }
+    /* Buttons modern */
+    button, .contact-btn {
+      background: var(--accent-gradient);
+      color: #23304a;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 36px;
+      font-weight: 800;
+      font-size: 1.08rem;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 2px 12px rgba(34,193,195,0.10), 0 1.5px 6px rgba(253,187,45,0.10);
+    }
+    button:active, .contact-btn:active {
+      transform: scale(0.97);
+    }
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: #23304a;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-size: 2.7rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 2.1rem;
+      margin-bottom: 18px;
+      text-align: center;
+      text-shadow: 0 2px 12px rgba(253,187,45,0.10), 0 1.5px 6px rgba(34,193,195,0.10);
+    }
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    /* Hero modern look */
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 340px;
+      background: none;
+      margin-bottom: 48px;
+    }
+    .hero-card {
+      background: rgba(34,34,59,0.81);
+      border-radius: 36px;
+      box-shadow: 0 8px 40px 0 rgba(34,193,195,0.13), 0 2px 12px 0 rgba(253,187,45,0.11);
+      padding: 54px 38px 44px 38px;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    .hero .slogan {
+      font-size: 1.3rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .hero .welcome {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+    }
+    /* Cards grid */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      margin-top: 18px;
+    }
+    /* About/Team modern */
+    .about-team, .formations, .team-members, .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 36px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .about-text {
+      flex: 2 1 320px;
+      font-size: 1.1rem;
+      color: #1a1a1a;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+    }
+    .about-img {
+      flex: 1 1 180px;
+      min-width: 120px;
+      text-align: center;
+      margin-top: 12px;
+    }
+    .about-img img {
+      width: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    /* Member cards modern */
+    .member-card {
+      min-width: 150px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-align: center;
+      padding: 22px 12px 16px 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      transition: box-shadow 0.18s, transform 0.18s;
+    }
+    .member-card:hover {
+      box-shadow: 0 8px 28px rgba(34,193,195,0.13), 0 4px 16px rgba(253,187,45,0.14);
+      transform: translateY(-4px) scale(1.04);
+    }
+    .member-card img {
+      width:100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+    .member-card h5 {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #23304a;
+    }
+    /* Footer modern */
+    footer {
+      text-align: center;
+      padding: 18px 0 8px 0;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      letter-spacing: 0.25px;
+    }
+    /* Contact modern */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-gradient);
+      color: #23304a;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 26px;
+      font-size: 1.12rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(34,193,195,0.10), 0 1.5px 6px rgba(253,187,45,0.10);
+      cursor: pointer;
+      transition: background 0.23s, color 0.23s, transform 0.18s;
+    }
+    .contact-btn:hover {
+      background: linear-gradient(90deg, #ffe800 0%, #23304a 100%);
+      color: #23304a;
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 6px 20px rgba(34,193,195,0.18), 0 3px 12px rgba(253,187,45,0.13);
+    }
+    .contact-cards {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 24px;
+    }
+    .contact-card {
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: 28px;
+      box-shadow: 0 8px 40px 0 rgba(34,193,195,0.18), 0 2px 12px 0 rgba(253,187,45,0.13);
+      padding: 48px 34px 38px 34px;
+      min-width: 320px;
+      max-width: 440px;
+      width: 100%;
+      color: #22223b;
+      font-size: 1.17rem;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      align-items: center;
+      position: relative;
+      backdrop-filter: blur(8px);
+      border: 2px solid #ffe80044;
+      overflow: hidden;
+    }
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,232,0,0.08) 0%, rgba(34,193,195,0.10) 100%);
+      z-index: 0;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 6px;
+    }
+    .contact-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: #fffbe6;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(253,187,45,0.11);
+    }
+    .contact-cta {
+      margin-top: 18px;
+    }
+    /* --- Responsive --- */
+    @media (max-width: 1100px) {
+      .container { max-width: 98%; }
+      .nav-links { gap: 12px; }
+      .about-team, .formations, .team-members, .contact { gap: 18px; }
+    }
+    @media (max-width: 900px) {
+      .container { max-width: 99%; }
+      .hero-card { padding: 32px 10px 22px 10px; border-radius: 22px; }
+      .hero h1 { font-size: 2rem; }
+      .cards { gap: 12px; }
+    }
+    @media (max-width: 700px) {
+      header { padding: 18px 0 10px 0; }
+      main { padding-top: 60px; }
+      .logo { font-size: 1.2rem; }
+      nav { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .nav-links { flex-direction: column; gap: 8px; width: 100%; }
+      section { margin-bottom: 32px; }
+      .about-team, .formations, .team-members, .contact { flex-direction: column; gap: 15px; }
+      .hero { padding: 24px 0 18px 0; }
+      .hero-card { padding: 20px 4px 16px 4px; border-radius: 14px; }
+      .cards { grid-template-columns: 1fr; gap: 10px; }
+      .contact-links { flex-direction: column; gap: 10px; align-items: center; }
+      .contact-btn { width: 100%; justify-content: center; padding: 12px 0; font-size: 1rem; }
+      .contact-card { min-width: 98vw; padding: 14px 4px 14px 4px; border-radius: 12px; }
+      .contact-cards { margin-top: 8px; }
+    }
+    @media (max-width: 420px) {
+      .container { width: 99vw; max-width: 100vw; }
+      .hero h1 { font-size: 1.2rem; }
+      .hero-card { padding: 10px 2px 8px 2px; }
+      .about-img img { width: 80px; }
+      .member-card img { width: 60px; height: 60px; }
+    }
+
+    /* Empêche tout débordement horizontal inattendu */
+    html, body {
+      overflow-x: hidden !important;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    img, section, nav, header, main, footer, .container {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    /* ==== Modern Skills Section ==== */
+    .modern-skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 34px;
+      margin: 36px 0 0 0;
+      padding: 0 8px;
+      justify-items: center;
+      align-items: stretch;
+      width: 100%;
+      animation: fadeInSkills 1.2s ease;
+    }
+    .modern-skill-card {
+      background: rgba(255,255,255,0.60);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(34,193,195,0.16), 0 2px 8px rgba(253,187,45,0.09);
+      padding: 30px 18px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: box-shadow 0.23s, transform 0.18s, background 0.18s;
+      overflow: hidden;
+      border: 1.5px solid #ffe80055;
+      min-height: 320px;
+      max-width: 310px;
+      width: 100%;
+      backdrop-filter: blur(7px);
+      z-index: 1;
+      opacity: 0;
+      animation: skillAppear 0.8s cubic-bezier(.54,1.6,.52,.98) forwards;
+    }
+    .modern-skill-card:hover {
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 12px 40px 0 rgba(253,187,45,0.18), 0 6px 24px 0 rgba(34,193,195,0.13);
+      transform: translateY(-8px) scale(1.04);
+      border-color: #ffe800;
+      z-index: 2;
+    }
+    .skill-icon-bg {
+      background: linear-gradient(120deg, #ffe80022 0%, #22c1c322 100%);
+      border-radius: 50%;
+      width: 88px;
+      height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 12px rgba(34,193,195,0.13);
+      border: 2.5px solid #ffe80033;
+      position: relative;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    .modern-skill-card:hover .skill-icon-bg {
+      box-shadow: 0 6px 32px rgba(253,187,45,0.17);
+      border: 2.5px solid #ffe800;
+    }
+    .skill-icon-bg img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px #ffe80044);
+    }
+    .modern-badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 22px 7px 22px;
+      background: linear-gradient(90deg, #ffe800 0%, #22c1c3 100%);
+      color: #1a2236;
+      border-radius: 20px;
+      font-size: 1.18rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px rgba(253,187,45,0.13);
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 1px 8px #fff8;
+      border: 2px solid #ffe80044;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .modern-skill-card:hover .modern-badge {
+      background: linear-gradient(90deg, #22c1c3 0%, #ffe800 100%);
+      color: #23304a;
+      box-shadow: 0 6px 24px rgba(34,193,195,0.13);
+    }
+    .modern-skill-card .skill-def {
+      margin-top: 14px;
+      color: #23304a;
+      font-size: 1.06rem;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.6;
+      letter-spacing: 0.1px;
+    }
+    /* Animation apparition skills */
+    @keyframes skillAppear {
+      0% { opacity: 0; transform: translateY(40px) scale(0.97); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes fadeInSkills {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .animate-skill:nth-child(1) { animation-delay: 0.1s; }
+    .animate-skill:nth-child(2) { animation-delay: 0.25s; }
+    .animate-skill:nth-child(3) { animation-delay: 0.4s; }
+    .animate-skill:nth-child(4) { animation-delay: 0.55s; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .modern-skills { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
+      .modern-skill-card { min-height: 240px; max-width: 98vw; }
+    }
+    @media (max-width: 600px) {
+      .modern-skills { grid-template-columns: 1fr; gap: 12px; }
+      .modern-skill-card { padding: 18px 6px 12px 6px; min-height: 160px; }
+      .skill-icon-bg { width: 64px; height: 64px; }
+      .skill-icon-bg img { width: 36px; height: 36px; }
+      .modern-badge { font-size: 1.02rem; padding: 6px 12px; }
+    }
+
+    :root {
+  --accent: #ffe800;
+  --bg: #f7f7f9;
+  --text: #222;
+  --muted: #666;
+  --card: #fff;
+  --border: #e0e0e0;
+}
+
+/* Modern hover effects */
+button, .contact-btn, .nav-links a, .skill-card, .blog-card, .member img {
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+button:hover, .contact-btn:hover {
+  background: var(--accent);
+  color: #23304a;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 20px rgba(34,193,195,0.18), 0 3px 12px rgba(253,187,45,0.13);
+}
+.nav-links a:hover, .nav-links a:focus {
+  color: var(--accent);
+  text-shadow: 0 2px 8px rgba(253,187,45,0.10);
+}
+.skill-card:hover, .blog-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 28px rgba(34,193,195,0.13), 0 4px 16px rgba(253,187,45,0.14);
+}
+.member img {
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.member img:hover {
+  transform: scale(1.07) rotate(-2deg);
+  box-shadow: 0 8px 28px rgba(34,193,195,0.16), 0 4px 16px rgba(253,187,45,0.18);
+}
+
+/* Responsive nav */
+@media (max-width: 900px) {
+  .container { max-width: 98%; }
+  .nav-links { gap: 14px; }
+}
+@media (max-width: 700px) {
+  nav { flex-direction: column; align-items: flex-start; }
+  .nav-links { flex-direction: column; gap: 10px; width: 100%; }
+  .logo { font-size: 1.5rem; }
+  .hero h1 { font-size: 2rem; }
+  section { margin-bottom: 32px; }
+}
+
+/* Cards modern look */
+.skill-card, .blog-card {
+  border-radius: 22px;
+  box-shadow: 0 4px 24px rgba(34,193,195,0.10), 0 2px 8px rgba(253,187,45,0.09);
+  background: rgba(255,255,255,0.96);
+  padding: 22px 18px;
+  margin: 12px 0;
+}
+
+/* Section spacing */
+section {
+  margin-bottom: 48px;
+  padding: 0 0 12px 0;
+}
+
+/* Buttons modern */
+button, .contact-btn {
+  background: linear-gradient(90deg, var(--accent) 0%, #23304a 100%);
+  color: #23304a;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 32px;
+  font-weight: 700;
+  font-size: 1.04rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  color: #23304a;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 800;
+}
+
+body {
+  color: var(--text);
+  background: linear-gradient(120deg, rgba(0,0,0,0.72) 0%, rgba(34,193,195,0.70) 35%, rgba(253,187,45,0.60) 100%), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+  min-height: 100vh;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: 
+    linear-gradient(120deg, rgba(0,0,0,0.72) 0%, rgba(34,193,195,0.70) 35%, rgba(253,187,45,0.60) 100%),
+    url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  backdrop-filter: blur(3.5px);
+  scroll-behavior: smooth;
+}
+main, header, footer {
+  position: relative;
+  z-index: 1;
+}
+main {
+  padding-top: 80px;
+}
+@media (max-width: 700px) {
+  main {
+    padding-top: 60px;
+  }
+}
+
+    header {
+  background: var(--card);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+  padding: 28px 0 16px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 100;
+  transition: box-shadow 0.18s, background 0.18s;
+}
+@media (max-width: 700px) {
+  header {
+    padding: 18px 0 10px 0;
+  }
+}
+    .container {
+      width: 92%;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+    .logo span {
+      color: var(--accent);
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      padding: 4px 0;
+      position: relative;
+    }
+    .nav-links a:hover, .nav-links a:focus {
+      color: var(--accent);
+    }
+    main {
+      flex: 1;
+      padding: 36px 0 0 0;
+    }
+    section {
+      margin-bottom: 54px;
+    }
+    .hero {
+      text-align: center;
+      padding: 54px 0 40px 0;
+      background: linear-gradient(90deg, var(--card) 70%, var(--accent) 100%);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      margin-bottom: 48px;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 18px;
+      color: #23304a;
+      letter-spacing: 1.5px;
+      text-align: center;
+      text-shadow: 0 2px 12px rgba(253,187,45,0.10), 0 1.5px 6px rgba(34,193,195,0.10);
+      position: relative;
+    }
+    h2::after {
+      content: '';
+      display: block;
+      margin: 0 auto;
+      margin-top: 12px;
+      width: 54px;
+      height: 5px;
+      border-radius: 3px;
+      background: #ffe800;
+      opacity: 0.85;
+    }
+    @media (max-width: 900px) {
+      h2 {
+        font-size: 1.45rem;
+        margin-bottom: 10px;
+      }
+      h2::after {
+        width: 32px;
+        height: 3px;
+        margin-top: 7px;
+      }
+    }
+    .hero .slogan {
+      font-size: 1.3rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    .hero .welcome {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      margin-top: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 22px 22px 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+    .about-team {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .about-text {
+  flex: 2 1 320px;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+    .about-img {
+      flex: 1 1 180px;
+      min-width: 120px;
+      text-align: center;
+      margin-top: 12px;
+    }
+    .about-img img {
+      width: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .skill {
+      background: var(--accent);
+      color: #222;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .formations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .formation-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 16px;
+      flex: 1 1 260px;
+      min-width: 220px;
+    }
+    .formation-card h4 {
+      color: var(--accent);
+      margin-bottom: 7px;
+      font-size: 1.1rem;
+    }
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 12px;
+    }
+    .member-card {
+      flex: 1 1 180px;
+      min-width: 150px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-align: center;
+      padding: 22px 12px 16px 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .member-card img {
+      width:100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+    .member-card h5 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .member-card p {
+      font-size: 0.97rem;
+      color: var(--muted);
+    }
+    .blog-placeholder {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.1rem;
+      padding: 38px 0 28px 0;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px dashed var(--accent);
+    }
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 12px;
+    }
+    .contact-info {
+      flex: 1 1 260px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 18px;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+    .contact-info strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    footer {
+      text-align: center;
+      padding: 18px 0 8px 0;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    @media (max-width: 700px) {
+      .about-team, .formations, .team-members, .contact {
+        flex-direction: column;
+        gap: 18px;
+      }
+      nav {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .hero {
+        padding: 34px 0 28px 0;
+      }
+      main {
+        padding-top: 15px;
+      }
+      section {
+        margin-bottom: 34px;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo" style="display:flex;align-items:center;gap:10px;">
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+    <circle cx="24" cy="24" r="22" fill="#ffe800" stroke="#23304a" stroke-width="3"/>
+    <path d="M18 26c0 4 3 7 7 7s7-3 7-7-3-7-7-7" stroke="#23304a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="16,20 24,12 32,20" fill="none" stroke="#23304a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span style="font-family:'Montserrat',Arial,sans-serif;font-weight:900;font-size:2rem;color:#1a2236;letter-spacing:1px;line-height:1;">Géni<span style="color:#ffe800;">Dev</span></span>
+</div>
+        <ul class="nav-links">
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#a-propos">À propos</a></li>
+          <li><a href="#competences">Compétences</a></li>
+          <li><a href="#equipe">Équipe</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <section class="hero" id="accueil">
+  <div class="hero-card">
+    <div class="hero-icon">
+      <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="27" cy="27" r="26" fill="#ffe800" stroke="#22223b" stroke-width="2"/>
+        <path d="M18 28L24 34L36 22" stroke="#22223b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1><span style="color:var(--accent)">Bienvenue</span> chez <span style="color:#fff">GéniDev</span></h1>
+    <div class="hero-divider"></div>
+    <div class="slogan">L'innovation au service du code</div>
+    <div class="welcome">Nous sommes un groupe de <b>4 étudiants passionnés</b> par le développement web.<br>Découvrez notre univers, nos compétences et notre parcours !</div>
+  </div>
+</section>
+
+<style>
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 340px;
+  background: none;
+  margin-bottom: 48px;
+}
+.hero-card {
+  background: rgba(34,34,59,0.76);
+  border-radius: 36px;
+  box-shadow: 0 8px 40px 0 rgba(34,193,195,0.13), 0 2px 12px 0 rgba(253,187,45,0.11);
+  padding: 54px 38px 44px 38px;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  color: #fff;
+}
+.hero-icon {
+  margin-bottom: 18px;
+}
+.hero-divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ffe800 0%, #4a4e69 100%);
+  border-radius: 2px;
+  margin: 18px auto 18px auto;
+}
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.slogan {
+  font-size: 1.3rem;
+  color: #ffe800;
+  font-weight: 700;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+}
+.welcome {
+  color: #fff;
+  font-size: 1.13rem;
+  margin-top: 6px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+@media (max-width: 700px) {
+  .hero-card {
+    padding: 30px 10px 24px 10px;
+    border-radius: 22px;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .slogan {
+    font-size: 1.02rem;
+  }
+}
+</style>
+    <section id="a-propos">
+      <h2>À propos</h2>
+      <div class="about-team">
+        <div class="about-text">
+          <p><strong>GéniDev</strong> est né de la passion commune de quatre étudiants pour le code et la création web. Nous croyons que chaque ligne de code peut transformer des idées en solutions innovantes. Notre équipe s'efforce d'apprendre, de partager et de grandir ensemble, pour offrir le meilleur du développement web.</p>
+        </div>
+        <div class="about-img">
+          <img src="https://ui-avatars.com/api/?name=GéniDev&background=ffe800&color=222&rounded=true&size=120" alt="Logo GéniDev">
+        </div>
+      </div>
+    </section>
+    <section id="competences">
+  <h2>Compétences</h2>
+  <div class="skills-cards modern-skills">
+  <div class="skill-card modern-skill-card animate-skill">
+    <div class="skill-icon-bg">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" alt="HTML5" />
+    </div>
+    <span class="skill-title modern-badge">HTML5</span>
+    <div class="skill-def">
+      <b>HTML5</b> est le langage de base du web : il structure le contenu des pages (titres, paragraphes, images, liens…) et permet l’affichage sur tous les navigateurs.
+    </div>
+  </div>
+  <div class="skill-card modern-skill-card animate-skill">
+    <div class="skill-icon-bg">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" alt="CSS3" />
+    </div>
+    <span class="skill-title modern-badge">CSS3</span>
+    <div class="skill-def">
+      <b>CSS3</b> sert à styliser et mettre en forme les pages web : couleurs, mises en page, animations, adaptabilité mobile… Il rend le web beau et agréable à utiliser.
+    </div>
+  </div>
+  <div class="skill-card modern-skill-card animate-skill">
+    <div class="skill-icon-bg">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" alt="PHP" />
+    </div>
+    <span class="skill-title modern-badge">PHP</span>
+    <div class="skill-def">
+      <b>PHP</b> est un langage de programmation côté serveur : il permet de créer des sites dynamiques, de gérer des bases de données et d’interagir avec les utilisateurs.
+    </div>
+  </div>
+  <div class="skill-card modern-skill-card animate-skill">
+    <div class="skill-icon-bg">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-plain.svg" alt="Java" />
+    </div>
+    <span class="skill-title modern-badge">Java</span>
+    <div class="skill-def">
+      <b>Java</b> est un langage polyvalent utilisé pour développer des applications robustes : sites web, logiciels, mobiles, objets connectés et bien plus encore.
+    </div>
+  </div>
+</div>
+ 
+  </div>
+</section>
+
+<style>
+.skills-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 36px;
+  margin-top: 40px;
+  margin-bottom: 0;
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+  border: none;
+  box-shadow: none;
+  background: none;
+  position: sticky;
+  top: 88px;
+  z-index: 90;
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 4px 22px rgba(34,193,195,0.10), 0 2px 8px rgba(253,187,45,0.09);
+  border-radius: 18px;
+  transition: box-shadow 0.18s, background 0.18s;
+}
+@media (max-width: 700px) {
+  .skills-cards {
+    top: 62px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 1100px) {
+  .skills-cards {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    max-width: 100vw;
+  }
+}
+@media (max-width: 900px) {
+  .skills-cards {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .skill-card {
+    width: 120px;
+    height: 120px;
+    font-size: 0.93rem;
+    padding: 6px 0 6px 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .skills-cards {
+    max-width: 100vw;
+    grid-template-columns: repeat(5, minmax(160px, 1fr));
+    gap: 18px;
+  }
+}
+@media (max-width: 800px) {
+  .skills-cards {
+    grid-template-columns: repeat(5, minmax(140px, 1fr));
+    gap: 12px;
+    overflow-x: auto;
+  }
+}
+@media (max-width: 650px) {
+  .skills-cards {
+    grid-template-columns: repeat(5, 120px);
+    height: 62px;
+    margin-bottom: 7px;
+  }
+}
+@media (max-width: 700px) {
+  .skill-card img {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 4px;
+  }
+}
+@media (max-width: 800px) {
+  .skill-card img {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 8px;
+  }
+}
+@media (max-width: 650px) {
+  .skill-card img {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 5px;
+  }
+}
+.skill-card span {
+  font-weight: 800;
+  color: var(--text);
+  font-size: 1.7rem;
+  letter-spacing: 1.5px;
+}
+.skill-card:hover {
+  border: 1.5px solid var(--accent);
+  box-shadow: 0 6px 24px rgba(255,232,0,0.10);
+}
+.skills-cards.soft {
+  gap: 12px;
+  margin-top: 10px;
+}
+.skill-card.soft {
+  background: #fffbe6;
+  border: 1.5px solid #ffe80033;
+  box-shadow: none;
+  width: 150px;
+  font-size: 1.08rem;
+  color: var(--muted);
+}
+</style>
+    <section id="formations">
+      <h2>Formations</h2>
+      <div class="formations">
+  <div class="formation-card">
+    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Bachelor Développement Web" class="formation-img" />
+    <h4>Bachelor Développement Web</h4>
+    <div>Université de la Tech, 2023 - en cours</div>
+  </div>
+  <div class="formation-card">
+    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Certification JavaScript" class="formation-img" />
+    <h4>Certification JavaScript</h4>
+    <div>OpenClassrooms, 2024</div>
+  </div>
+  <div class="formation-card">
+    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80" alt="Certification PHP & MySQL" class="formation-img" />
+    <h4>Certification PHP & MySQL</h4>
+    <div>Sololearn, 2023</div>
+  </div>
+  <div class="formation-card">
+    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Responsive Web Design" class="formation-img" />
+    <h4>Responsive Web Design</h4>
+    <div>freeCodeCamp, 2024</div>
+  </div>
+</div>
+<style>
+.formation-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.formation-img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 7px 7px 0 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.formation-card h4 {
+  margin-top: 5px;
+}
+</style>
+<section id="equipe">
+  <h2>Équipe</h2>
+  <div class="team-grid">
+    <div class="member">
+      <img src="macoumba.jpg" alt="Macoumba Sarr">
+      <h5>Macoumba Sarr</h5>
+      <p>Développeur Front-End</p>
+      <span>Design web & UX/UI</span>
+    </div>
+    <div class="member">
+      <img src="mbaye.jpg" alt="Babacar Mbaye">
+      <h5>Babacar Mbaye</h5>
+      <p>Développeuse Back-End</p>
+      <span>PHP, MySQL & sécurité</span>
+    </div>
+    <div class="member">
+      <img src="babs.jpg" alt="Mbaye Diagne">
+      <h5>Mbaye Diagne</h5>
+      <p>Développeur Full-Stack</p>
+      <span>API & clean code</span>
+    </div>
+    <div class="member">
+      <img src="dahi.jpg.jpg" alt="Dahi Aidara">
+      <h5>Dahi Aidara</h5>
+      <p>Intégratrice Web</p>
+      <span>Accessibilité & responsive</span>
+    </div>
+  </div>
+</section>
+<style>
+  .team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 38px;
+  margin-top: 36px;
+  justify-items: center;
+}
+.member {
+  background: rgba(255,255,255,0.82);
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 32px 0 rgba(34,193,195,0.13), 0 4px 18px 0 rgba(253,187,45,0.13);
+  padding: 34px 22px 26px 22px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(7px);
+  border: 2.5px solid #ffe80044;
+  transition: box-shadow 0.23s, transform 0.23s, border-color 0.23s;
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  animation: memberFadeIn 0.8s cubic-bezier(.44,.13,.48,.87) forwards;
+}
+.member::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(120deg, rgba(255,232,0,0.09) 0%, rgba(34,193,195,0.10) 100%);
+}
+.member:hover {
+  transform: translateY(-10px) scale(1.045);
+  box-shadow: 0 18px 48px rgba(34,193,195,0.18), 0 7px 28px rgba(253,187,45,0.16);
+  border-color: #ffe800;
+}
+.member img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background: #f7f7f9;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.23s;
+}
+@media (max-width: 900px) {
+  .member img {
+    width: 100px;
+    height: 100px;
+  }
+}
+.member:hover img {
+  transform: scale(1.09) rotate(-2deg);
+  box-shadow: 0 16px 48px rgba(34,193,195,0.19), 0 8px 32px rgba(253,187,45,0.18);
+}
+.member h5 {
+  font-size: 1.22rem;
+  font-weight: 900;
+  color: #23304a;
+  margin: 12px 0 4px 0;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+.member p {
+  color: #23304a;
+  font-size: 1.04rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+.member-badge, .member span {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 1.01rem;
+  color: #fff;
+  background: linear-gradient(90deg, #ffe800 0%, #4a4e69 100%);
+  padding: 7px 18px;
+  border-radius: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 5px rgba(253,187,45,0.09);
+  position: relative;
+  z-index: 1;
+  border: none;
+}
+.member span {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.member .badge-ux::before {
+  content: '\1F4BB  ';
+}
+.member .badge-backend::before {
+  content: '\1F512  ';
+}
+.member .badge-fullstack::before {
+  content: '\1F4A1  ';
+}
+.member .badge-access::before {
+  content: '\1F50D  ';
+}
+@media (max-width: 900px) {
+  .team-grid {
+    gap: 18px;
+  }
+  .member {
+    padding: 18px 6px 12px 6px;
+    border-radius: 17px;
+  }
+  .member img {
+    width: 72px;
+    height: 72px;
+    border-radius: 7px;
+    margin-bottom: 7px;
+  }
+  .member h5 {
+    font-size: 1.01rem;
+    margin: 7px 0 2px 0;
+  }
+  .member p {
+    font-size: 0.91rem;
+    margin-bottom: 2px;
+  }
+  .member span {
+    font-size: 0.85rem;
+    padding: 4px 7px;
+    border-radius: 9px;
+  }
+}
+@keyframes memberFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.member-card img {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: 0 8px 28px rgba(34,34,59,0.18);
+  margin-bottom: 18px;
+  border: 4px solid #fff;
+  background: #f7f7f9;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+</style>
+    </section>
+    <section id="blog">
+  <h2>Blog</h2>
+  <div class="blog-cards">
+    <div class="blog-card">
+      <div class="blog-img">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80" alt="Blog illustration">
+      </div>
+      <div class="blog-content">
+        <h3>Bientôt sur notre blog !</h3>
+        <p>Retrouvez prochainement nos articles, astuces et retours d’expérience sur le développement web, la vie étudiante et l’innovation numérique.</p>
+        <button class="blog-btn" disabled>Bientôt disponible</button>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+.blog-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+.blog-card {
+  display: flex;
+  background: rgba(255,255,255,0.94);
+  border-radius: 22px;
+  box-shadow: 0 4px 24px rgba(34,193,195,0.10), 0 2px 8px rgba(253,187,45,0.09);
+  overflow: hidden;
+  max-width: 600px;
+  width: 100%;
+  align-items: center;
+}
+.blog-img img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 0 22px 22px 0;
+  filter: grayscale(18%) contrast(1.08);
+}
+.blog-content {
+  padding: 18px 26px 18px 26px;
+  flex: 1;
+}
+.blog-content h3 {
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-weight: 800;
+}
+.blog-content p {
+  color: #222;
+  font-size: 1.08rem;
+  margin-bottom: 14px;
+}
+.blog-btn {
+  background: linear-gradient(90deg, #ffe800 0%, #4a4e69 100%);
+  border: none;
+  color: #22223b;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 18px;
+  font-size: 1.08rem;
+  cursor: not-allowed;
+  opacity: 0.7;
+  box-shadow: 0 2px 8px rgba(253,187,45,0.11);
+}
+@media (max-width: 700px) {
+  .blog-card {
+    flex-direction: column;
+    max-width: 98vw;
+  }
+  .blog-img img {
+    width: 100%;
+    height: 120px;
+    border-radius: 22px 22px 0 0;
+  }
+  .blog-content {
+    padding: 14px 10px 14px 10px;
+  }
+}
+</style>
+    <section id="contact">
+  <h2>Contact</h2>
+  <div class="contact-links" style="display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-bottom:36px;">
+  <a class="contact-btn" href="mailto:geniedevgenidev@gmail.com" title="Écrire un email">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Email" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;">geniedev@gmail.com
+  </a>
+  <a class="contact-btn" href="tel:+221759046135" title="Appeler" style="gap:12px;">
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" style="vertical-align:middle;"><circle cx="12" cy="12" r="12" fill="#23304a"/><path d="M7 10.5c1.5 2.5 4 5 6.5 6.5l2-2a1 1 0 0 1 1-.25c1 .25 2 .5 3 .75a1 1 0 0 1 .75 1v3A1 1 0 0 1 19 21C10.16 21 3 13.84 3 5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1c.25 1 .5 2 .75 3a1 1 0 0 1-.25 1l-2 2z" stroke="#ffe800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    +221 759046135
+  </a>
+  <a class="contact-btn" href="https://wa.me/221759046135" target="_blank" rel="noopener" title="WhatsApp">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;">WhatsApp
+  </a>
+  <a class="contact-btn" href="https://www.linkedin.com/" target="_blank" rel="noopener" title="LinkedIn">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;">LinkedIn
+  </a>
+</div>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <div class="contact-row">
+        <span class="contact-icon"><svg width="32" height="32" fill="none" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#ffe800"/><path d="M8 22v-8a4 4 0 014-4h8a4 4 0 014 4v8" stroke="#22223b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span><strong>Adresse :</strong>Parcelles Assanies U17 en face Terminus DDK</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon"><svg width="32" height="32" fill="none" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#ffe800"/><path d="M22 12l-8 8-4-4" stroke="#22223b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span><strong>Email :</strong> <a href="geniedevgenidev@gmail.com">genidevgeniedev@gmail.com</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon"><svg width="32" height="32" fill="none" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#ffe800"/><path d="M10 12h12M10 16h12M10 20h8" stroke="#22223b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span><strong>Téléphone :</strong> <a href="tel:+221759046135">+221 75 904 61 35</a></span>
+      </div>
+      <div class="contact-cta">
+        <a href="mailto:geniedevgenidev@gmail.com" class="contact-btn">Écrivez-nous</a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #23304a 0%, #ffe800 100%);
+  color: #23304a;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 26px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(34,193,195,0.10), 0 1.5px 6px rgba(253,187,45,0.10);
+  cursor: pointer;
+  transition: background 0.23s, color 0.23s, transform 0.18s;
+}
+.contact-btn:hover {
+  background: linear-gradient(90deg, #ffe800 0%, #23304a 100%);
+  color: #23304a;
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 6px 20px rgba(34,193,195,0.18), 0 3px 12px rgba(253,187,45,0.13);
+}
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 24px;
+}
+.contact-card {
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 28px;
+  box-shadow: 0 8px 40px 0 rgba(34,193,195,0.18), 0 2px 12px 0 rgba(253,187,45,0.13);
+  padding: 48px 34px 38px 34px;
+  min-width: 320px;
+  max-width: 440px;
+  width: 100%;
+  color: #22223b;
+  font-size: 1.17rem;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  align-items: center;
+  position: relative;
+  backdrop-filter: blur(8px);
+  border: 2px solid #ffe80044;
+  overflow: hidden;
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,232,0,0.08) 0%, rgba(34,193,195,0.10) 100%);
+  z-index: 0;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 6px;
+}
+.contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: #fffbe6;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(253,187,45,0.11);
+}
+.contact-cta {
+  margin-top: 18px;
+}
+@media (max-width: 700px) {
+  .contact-links {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  .contact-btn {
+    width: 90vw;
+    justify-content: center;
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+  .contact-card {
+    min-width: 98vw;
+    padding: 18px 6px 18px 6px;
+    border-radius: 16px;
+  }
+  .contact-cards {
+    margin-top: 8px;
+  }
+}
+</style>
+  </main>
+  <footer>
+    © 2025 GéniDev — Tous droits réservés.
+  </footer>
+</body>
+</html>
+
